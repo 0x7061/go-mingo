@@ -1,5 +1,5 @@
 # go-mingo
-Minimal mingo port for Go projects.
+Minimal mingo port for Go projects, based on https://github.com/kofrasa/mingo
 
 ## Install
 ```$ go get github.com/codepushr/go-mingo```
