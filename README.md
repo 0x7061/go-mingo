@@ -14,7 +14,7 @@ Import go-mingo, create a query and run `Test()` on it.
 import "github.com/codepushr/go-mingo"
 
 func main() {
-    q := mingo.Query{Criteria: Object{
+    q := mingo.Query{Criteria: mingo.Object{
         "type": "ranking",
         "$and": []mingo.Object{
             mingo.Object{
