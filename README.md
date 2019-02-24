@@ -10,7 +10,7 @@ Minimal mingo port for Go projects.
 
 ## Usage
 Import go-mingo, create a query and run `Test()` on it.
-```
+```go
 import "github.com/codepushr/go-mingo"
 
 func main() {
