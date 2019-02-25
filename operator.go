@@ -20,14 +20,16 @@ type QueryOperator struct{}
 // eq checks if the field of the given data matches the defined expression.
 func (qo *QueryOperator) eq(field string, expr interface{}) func(Object) bool {
 	return func(obj Object) bool {
-		return obj[field] == expr
+		val := resolve(obj, field)
+		return val == expr
 	}
 }
 
 // ne checks if the value of the given data doesn't match the expression.
 func (qo *QueryOperator) ne(field string, expr interface{}) func(Object) bool {
 	return func(obj Object) bool {
-		return obj[field] != expr
+		val := resolve(obj, field)
+		return val != expr
 	}
 }
 
@@ -35,11 +37,13 @@ func (qo *QueryOperator) ne(field string, expr interface{}) func(Object) bool {
 // expression.
 func (qo *QueryOperator) gt(field string, expr interface{}) func(Object) bool {
 	return func(obj Object) bool {
-		switch obj[field].(type) {
+		val := resolve(obj, field)
+
+		switch val.(type) {
 		case int:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(int) > expr.(int)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(int) > expr.(int)
 		case float32:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(float32) > expr.(float32)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(float32) > expr.(float32)
 		}
 		return false
 	}
@@ -49,11 +53,13 @@ func (qo *QueryOperator) gt(field string, expr interface{}) func(Object) bool {
 // value of the expression.
 func (qo *QueryOperator) gte(field string, expr interface{}) func(Object) bool {
 	return func(obj Object) bool {
-		switch obj[field].(type) {
+		val := resolve(obj, field)
+
+		switch val.(type) {
 		case int:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(int) >= expr.(int)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(int) >= expr.(int)
 		case float32:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(float32) >= expr.(float32)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(float32) >= expr.(float32)
 		}
 		return false
 	}
@@ -63,11 +69,13 @@ func (qo *QueryOperator) gte(field string, expr interface{}) func(Object) bool {
 // expression.
 func (qo *QueryOperator) lt(field string, expr interface{}) func(Object) bool {
 	return func(obj Object) bool {
-		switch obj[field].(type) {
+		val := resolve(obj, field)
+
+		switch val.(type) {
 		case int:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(int) < expr.(int)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(int) < expr.(int)
 		case float32:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(float32) < expr.(float32)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(float32) < expr.(float32)
 		}
 		return false
 	}
@@ -77,11 +85,13 @@ func (qo *QueryOperator) lt(field string, expr interface{}) func(Object) bool {
 // value of the expression.
 func (qo *QueryOperator) lte(field string, expr interface{}) func(Object) bool {
 	return func(obj Object) bool {
-		switch obj[field].(type) {
+		val := resolve(obj, field)
+
+		switch val.(type) {
 		case int:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(int) <= expr.(int)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(int) <= expr.(int)
 		case float32:
-			return reflect.TypeOf(obj[field]) == reflect.TypeOf(expr) && obj[field].(float32) <= expr.(float32)
+			return reflect.TypeOf(val) == reflect.TypeOf(expr) && val.(float32) <= expr.(float32)
 		}
 		return false
 	}

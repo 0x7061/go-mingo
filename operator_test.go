@@ -9,11 +9,13 @@ import (
 func TestQueryOperatorEq(t *testing.T) {
 	Convey("Given an expression containing a comparison", t, func() {
 		query := Query{Criteria: Object{
-			"type": "ranking",
+			"type.ranking": 10,
 		}}
 		Convey("Where the dataset matches the expression", func() {
 			data := Object{
-				"type": "ranking",
+				"type": Object{
+					"ranking": 10,
+				},
 			}
 			So(query.Test(data), ShouldEqual, true)
 		})
